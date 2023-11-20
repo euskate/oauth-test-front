@@ -3,7 +3,7 @@ import { apiClient, authenticationApi } from '../api/ApiClient';
 
 
 // 인증 컨텍스트 생성
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 // Context Provider : 인증상태, 사용자정보, 로그인, 로그아웃 함수를 자식 컴포넌트에 공급
 export const AuthProvider = ({ children }) => {

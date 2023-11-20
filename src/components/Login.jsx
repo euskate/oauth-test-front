@@ -1,21 +1,22 @@
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { authenticationApi } from "./api/ApiClient";
+import { AuthContext, useAuth } from "./security/AuthContext";
 
 function Login() {
+
+  const useAuth()
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const form = e.target;
     const formData = new FormData(form);
 
-    const url = "http://localhost:8080/authenticate";
-    const response = await authenticationApi(
-      formData.get("email"),
-      formData.get("password")
-    );
-    console.log(response.data);
+    // const response = await login(
+    //   formData.get("email"),
+    //   formData.get("password")
+    // );
+    // console.log(response.data);
 
     // //.catch((error) => console.log(error.stack));
     // const formJson = Object.fromEntries(formData.entries());
@@ -41,7 +42,6 @@ function Login() {
           />
         </div>
         <button>로그인</button>
-        <Link to="/join">회원가입</Link>
       </form>
     </div>
   );
