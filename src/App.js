@@ -1,8 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import Register from './components/Register';
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
+import Member from './components/Member';
+import Join from './components/Join';
 
 
 function App() {
@@ -10,8 +11,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Register />} />
+          <Route path='/' element={<Login />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/join' element={<Join />} />
+          <Route path='/member' element={<Member />} />
         </Routes>
       </BrowserRouter>
     </div>

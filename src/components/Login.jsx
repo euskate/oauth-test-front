@@ -1,4 +1,7 @@
+import axios from "axios";
 import React from "react";
+import { Link } from "react-router-dom";
+import { authenticationApi } from "./api/ApiClient";
 
 function Login() {
   const handleSubmit = async (e) => {
@@ -7,19 +10,16 @@ function Login() {
     const form = e.target;
     const formData = new FormData(form);
 
-    // const url = "http://localhost:8080/api/member";
-    // await axios
-    //   .post(url, formData)
-    //   .then((response) => {
-    //     if (response.status === 200) {
-    //       console.log(response);
-    //       console.log("create memeber id", response.data);
-    //     }
-    //   })
-    //   .catch((error) => console.log(error));
-    // Or you can work with it as a plain object:
-    const formJson = Object.fromEntries(formData.entries());
-    console.log(formJson);
+    const url = "http://localhost:8080/authenticate";
+    const response = await authenticationApi(
+      formData.get("email"),
+      formData.get("password")
+    );
+    console.log(response.data);
+
+    // //.catch((error) => console.log(error.stack));
+    // const formJson = Object.fromEntries(formData.entries());
+    // console.log(formJson);
   };
   return (
     <div>
@@ -41,6 +41,7 @@ function Login() {
           />
         </div>
         <button>로그인</button>
+        <Link to="/join">회원가입</Link>
       </form>
     </div>
   );

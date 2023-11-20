@@ -1,7 +1,10 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Register() {
+function Join() {
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -15,6 +18,8 @@ export default function Register() {
         if (response.status === 200) {
           console.log(response);
           console.log("create memeber id", response.data);
+          alert("회원가입이 완료되었습니다.");
+          navigate("/login");
         }
       })
       .catch((error) => console.log(error));
@@ -43,14 +48,13 @@ export default function Register() {
           />
         </div>
         <div>
-          <input
-            type="text"
-            name="username"
-            placeholder="사용자명을 입력하세요"
-          />
+          <input type="text" name="name" placeholder="사용자명을 입력하세요" />
         </div>
         <button>회원가입</button>
+        <Link to="/login">로그인</Link>
       </form>
     </div>
   );
 }
+
+export default Join;
