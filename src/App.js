@@ -2,23 +2,27 @@ import './App.css';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
-import Member from './components/Member';
 import Join from './components/Join';
 import Header from './components/Header';
-
+import { AuthProvider } from './components/security/AuthContext';
+import MyPage from './components/MyPage';
+import Logout from './components/Logout';
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path='/' element={<Login />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/join' element={<Join />} />
-          <Route path='/member' element={<Member />} />
-        </Routes>
-      </BrowserRouter>
+    <div className='App'>
+      <AuthProvider>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path='/' element={<Login />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/join' element={<Join />} />
+            <Route path='/myPage' element={<MyPage />} />
+            <Route path='/logout' element={<Logout />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </div>
   );
 }

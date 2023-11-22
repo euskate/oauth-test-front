@@ -8,3 +8,5 @@ export const apiClient = axios.create({
 // API 요청 : path, method, data 정의
 export const authenticationApi = (username, password) =>
   apiClient.post(`/authenticate`, { username, password });
+
+export const myPageApi = () => apiClient.get(`/member/myPage`);

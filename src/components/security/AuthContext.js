@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { apiClient, authenticationApi } from '../api/ApiClient';
 
-
 // 인증 컨텍스트 생성
 export const AuthContext = createContext();
 
@@ -9,11 +8,10 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState(null);
-  const [token, setToken] = useState(null);  // 토큰 상태추가
+  const [token, setToken] = useState(null); // 토큰 상태추가
 
   // 로그인 ( 인증요청 : 비동기 )
   const login = async (username, password) => {
-
     // 서비스에 인증 요청 => JWT 토큰 응답
     try {
       const response = await authenticationApi(username, password);
@@ -27,7 +25,9 @@ export const AuthProvider = ({ children }) => {
 
         // 인터셉터 등록! 한번 등록된 인터셉터는 모든 API 요청에 사용된다.
         apiClient.interceptors.request.use((config) => {
-          console.log('가로채기(intercept)하여 요청 헤더에 토큰 인증정보를 추가');
+          console.log(
+            '가로채기(intercept)하여 요청 헤더에 토큰 인증정보를 추가'
+          );
           config.headers.Authorization = jwtToken;
           return config;
         });
@@ -41,14 +41,14 @@ export const AuthProvider = ({ children }) => {
       logout();
       return false;
     }
-  }
+  };
 
   // 로그아웃 : 인증, 사용자, 토큰 상태 해제
-  const logout = () => {
+  function logout() {
     setIsAuthenticated(false);
     setUsername(null);
     setToken(null);
-  };
+  }
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, username, login, logout }}>
