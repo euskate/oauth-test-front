@@ -5,10 +5,20 @@ import { myPageApi } from './api/ApiClient';
 function MyPage() {
   const [memberDto, setMemberDto] = useState(null);
 
-  useEffect(async () => {
-    const response = await myPageApi();
-    console.log(response);
-    setMemberDto(response.data);
+  const callApi = () => {
+    const response = myPageApi()
+      .then((response) => {
+        if (response.status === 200) {
+          setMemberDto(response.data);
+          console.log('응답성공');
+        } else {
+          console.log(response);
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+  useEffect(() => {
+    callApi();
   }, []);
   return (
     <div>

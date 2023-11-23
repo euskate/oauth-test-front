@@ -7,6 +7,7 @@ import Header from './components/Header';
 import { AuthProvider } from './components/security/AuthContext';
 import MyPage from './components/MyPage';
 import Logout from './components/Logout';
+import Hello from './components/Hello';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path='/join' element={<Join />} />
             <Route path='/myPage' element={<MyPage />} />
             <Route path='/logout' element={<Logout />} />
+            <Route path='/hello' element={<Hello />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

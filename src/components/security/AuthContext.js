@@ -9,6 +9,9 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState(null);
   const [token, setToken] = useState(null); // 토큰 상태추가
+  const [authority, setAuthority] = useState(null);
+
+  // const requestTokenInterceptor = (jwtToken) =>
 
   // 로그인 ( 인증요청 : 비동기 )
   const login = async (username, password) => {
@@ -22,15 +25,19 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
         setUsername(username);
         setToken(jwtToken);
+        setAuthority(response.data.authority);
 
         // 인터셉터 등록! 한번 등록된 인터셉터는 모든 API 요청에 사용된다.
-        apiClient.interceptors.request.use((config) => {
-          console.log(
-            '가로채기(intercept)하여 요청 헤더에 토큰 인증정보를 추가'
-          );
-          config.headers.Authorization = jwtToken;
-          return config;
-        });
+        const requestTokenInterceptor = apiClient.interceptors.request.use(
+          (config) => {
+            console.log(
+              '가로채기(intercept)하여 요청 헤더에 토큰 인증정보를 추가'
+            );
+            config.headers.Authorization = jwtToken;
+            return config;
+          }
+        );
+
         // 정상응답이 아닌 경우 => 로그아웃
       } else {
         logout();
@@ -48,6 +55,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     setUsername(null);
     setToken(null);
+    apiClient.interceptors.request.clear();
   }
 
   return (

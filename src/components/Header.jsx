@@ -12,6 +12,7 @@ function Header() {
         {!isAuthenticated && <Link to='/login'>로그인</Link>}
         {!isAuthenticated && <Link to='/join'>회원가입</Link>}
         {isAuthenticated && <Link to='/myPage'>회원정보</Link>}
+        {isAuthenticated && <Link to='/hello'>hello</Link>}
         {isAuthenticated && (
           <Link to='/logout' onClick={logout}>
             로그아웃

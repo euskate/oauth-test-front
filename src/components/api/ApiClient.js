@@ -10,3 +10,5 @@ export const authenticationApi = (username, password) =>
   apiClient.post(`/authenticate`, { username, password });
 
 export const myPageApi = () => apiClient.get(`/member/myPage`);
+
+export const helloApi = () => apiClient.get('/hello');
